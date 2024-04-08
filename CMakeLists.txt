@@ -5,9 +5,10 @@ set(TARGET_BASE_NAME "${PROJECT_NAME}")
 set(APP_NAME "${TARGET_BASE_NAME}")
 set(TCL_ROOT "${PROJECT_SOURCE_DIR}/lib/tcl9.0b1")
 set(TCL_INCLUDE_DIR "${TCL_ROOT}/win/release/include")
+set(TCL_LIB_DIR "${TCL_ROOT}/win")
 
 add_executable(${APP_NAME}
-  src/embedtcl.c
+  src/app.c
 )
 
 target_include_directories(${APP_NAME} PRIVATE
@@ -27,7 +28,7 @@ target_compile_definitions(${APP_NAME} PUBLIC
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   target_compile_options(${APP_NAME} PRIVATE -Wall)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  target_link_options(${APP_NAME} PRIVATE /LTCG)
+  target_link_options(${APP_NAME} PRIVATE "$<$<CONFIG:Release>:/LTCG>")
   set_property(TARGET ${APP_NAME} PROPERTY
     MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
   )
@@ -35,11 +36,24 @@ endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  execute_process(
-    COMMAND nmake -f makefile.vc all OPTS=static,pdbs,nomsvcrt
-    COMMAND nmake -f makefile.vc install INSTALLDIR=release OPTS=static,pdbs,nomsvcrt
-    COMMAND nmake -f makefile.vc all OPTS=static,symbols,nomsvcrt
-    COMMAND nmake -f makefile.vc install INSTALLDIR=debug OPTS=static,symbols,nomsvcrt
-    WORKING_DIRECTORY "${TCL_ROOT}/win"
-  )
+  if(NOT EXISTS "${TCL_LIB_DIR}/release/lib/tcl90s.lib")
+    execute_process(
+      COMMAND nmake -f makefile.vc all OPTS=static,pdbs,nomsvcrt
+      WORKING_DIRECTORY "${TCL_ROOT}/win"
+    )
+    execute_process(
+      COMMAND nmake -f makefile.vc install INSTALLDIR=release OPTS=static,pdbs,nomsvcrt
+      WORKING_DIRECTORY "${TCL_ROOT}/win"
+    )
+  endif()
+  if(NOT EXISTS "${TCL_LIB_DIR}/debug/lib/tcl90s.lib")
+    execute_process(
+      COMMAND nmake -f makefile.vc all OPTS=static,symbols,nomsvcrt
+      WORKING_DIRECTORY "${TCL_ROOT}/win"
+    )
+    execute_process(
+      COMMAND nmake -f makefile.vc install INSTALLDIR=debug OPTS=static,symbols,nomsvcrt
+      WORKING_DIRECTORY "${TCL_ROOT}/win"
+    )
+  endif()
 endif()
