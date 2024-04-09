@@ -1,3 +1,13 @@
+# Temp directories
+build/
+lib/tcl9.0b1/win/debug*/
+lib/tcl9.0b1/win/release*/
+lib/tcl9.0b1/win/versions.vc
+lib/tcl9.0b1/pkgs/*/win/debug*/
+lib/tcl9.0b1/pkgs/*/win/release*/
+lib/tcl9.0b1/pkgs/*/win/include
+lib/tcl9.0b1/pkgs/*/win/versions.vc
+
 # Prerequisites
 *.d
 
