@@ -1,28 +1,6 @@
 # Temp directories
 build*/
 
-lib/tcl9.0b1/unix/debug*/
-lib/tcl9.0b1/unix/release*/
-lib/tcl9.0b1/unix/libtcl.vfs/
-lib/tcl9.0b1/unix/pkgs/*
-lib/tcl9.0b1/unix/config.log
-lib/tcl9.0b1/unix/config.status
-lib/tcl9.0b1/unix/libtcl9.0b1.zip
-lib/tcl9.0b1/unix/Makefile
-lib/tcl9.0b1/unix/tcl.pc
-lib/tcl9.0b1/unix/tclConfig.sh
-lib/tcl9.0b1/unix/tclsh
-lib/tcl9.0b1/unix/tclUuid.h
-lib/tcl9.0b1/unix/dltest/Makefile
-
-lib/tcl9.0b1/win/debug*/
-lib/tcl9.0b1/win/release*/
-lib/tcl9.0b1/win/versions.vc
-lib/tcl9.0b1/pkgs/*/win/debug*/
-lib/tcl9.0b1/pkgs/*/win/release*/
-lib/tcl9.0b1/pkgs/*/win/include
-lib/tcl9.0b1/pkgs/*/win/versions.vc
-
 # Prerequisites
 *.d
 
