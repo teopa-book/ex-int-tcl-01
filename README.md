@@ -8,6 +8,8 @@ $ mkdir build-debug
 $ cd build-debug
 $ cmake .. -DCMAKE_BUILD_TYPE=Debug
 $ cmake --build .
+$ ./tclmin "3 * 2"
+6
 ```
 
 Build in Windows:
@@ -17,4 +19,7 @@ $ mkdir build
 $ cd build
 $ cmake ..
 $ cmake --build . --config Debug
+$ cd Debug
+$ tclmin "3 * 2"
+6
 ```
