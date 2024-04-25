@@ -12,14 +12,20 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    int rv = Tcl_Eval(interp, "puts \"hello world\"");
-    const char *result = Tcl_GetStringResult(interp);
+    int rv = 0;
+    if (argc > 1) {
+        rv = Tcl_ExprString(interp, argv[1]);
+    } else {
+        rv = Tcl_Eval(interp, "puts \"hello world\"");
+    }
+
     if (rv != TCL_OK) {
-        fprintf(stderr, "fail to evaluate file: %s\n", result);
+        fprintf(stderr, "fail to evaluate script\n");
         Tcl_DeleteInterp(interp);
         return EXIT_FAILURE;
     }
 
+    const char *result = Tcl_GetStringResult(interp);
     printf("%s", result);
     Tcl_DeleteInterp(interp);
     return EXIT_SUCCESS;
